@@ -17,7 +17,7 @@ class SnippetSerializers(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.code = validated_data.get('code', instance.code)
-        instance.linenos = validated_data.get('linenos' instance.linenos)
+        instance.linenos = validated_data.get('linenos', instance.linenos)
         instance.language = validated_data('language', instance.language)
         instance.style = validated_data('style', instance.style)
         instance.save()
