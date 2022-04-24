@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/', include('quick.urls')),
     path('api/', include('snippets.urls')),
     path('api/', include('posts.urls')),
+    path('auth/', include('rest_framework.urls')),
 ]
