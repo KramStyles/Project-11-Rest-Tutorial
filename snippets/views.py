@@ -1,7 +1,18 @@
-from rest_framework import generics, response, decorators, status
+from django.contrib.auth.models import User
+from rest_framework import generics, response, decorators, status, permissions
 
 from . import serializers
 from .models import Snippet
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
 
 
 class ViewApi(generics.ListCreateAPIView):
@@ -10,12 +21,17 @@ class ViewApi(generics.ListCreateAPIView):
 
 
 class ViewModelApi(generics.ListCreateAPIView):
-    serializer_class = serializers.SnippetSerializers
+    serializer_class = serializers.SnippetModel
     queryset = Snippet.objects.all()
+
+    def perform_create(self, serializer):
+        return serializer.save(owner=self.request.user)
 
 class CrudModelApi(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.SnippetSerializers
     queryset = Snippet.objects.all()
+
+
 
 
 @decorators.api_view(['GET', 'POST'])

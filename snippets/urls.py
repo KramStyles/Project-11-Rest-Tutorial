@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('snips/', views.snips),
     path('snip/<int:pk>', views.snip_detail),
+
+    path('users/', views.UserList.as_view()),
+    path('users/<int:pk>/', views.UserDetail.as_view()),
 ]
