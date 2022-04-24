@@ -37,14 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     # My apps
     'quick',
     'snippets',
     'posts',
 
+    # PIP installs
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth'
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +146,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         ]
 }
+
+SITE_ID = 1
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
