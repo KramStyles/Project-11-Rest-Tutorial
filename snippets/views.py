@@ -15,7 +15,7 @@ class ViewModelApi(generics.ListCreateAPIView):
 
 
 @decorators.api_view(['GET', 'POST'])
-def snips(request):
+def snips(request, format=None):
     if request.method == 'GET':
         snippets = Snippet.objects.all()
         serializer = serializers.SnippetSerializers(snippets, many=True)
@@ -30,7 +30,7 @@ def snips(request):
 
 
 @decorators.api_view(['GET', 'PUT', 'DELETE'])
-def snip_detail(request, pk):
+def snip_detail(request, pk, format=None):
     try:
         snippet = Snippet.objects.get(pk=pk)
     except Snippet.DoesNotExist:
