@@ -29,5 +29,24 @@ def snips(request):
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@decorators.api_view(['GET', 'PUT', 'DELETE'])
+def snip_detail(request, pk):
+    try:
+        snippet = Snippet.objects.get(pk=pk)
+    except Snippet.DoesNotExist:
+        return response.Response(status=status.HTTP_404_NOT_FOUND)
 
-    # Create your views here.
+    if request.method == 'GET':
+        serializer = serializers.SnippetModel(snippet)
+        return response.Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = serializers.SnippetModel(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return response.Response(serializer.data)
+        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
