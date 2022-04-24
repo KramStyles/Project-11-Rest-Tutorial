@@ -13,6 +13,10 @@ class ViewModelApi(generics.ListCreateAPIView):
     serializer_class = serializers.SnippetSerializers
     queryset = Snippet.objects.all()
 
+class CrudModelApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.SnippetSerializers
+    queryset = Snippet.objects.all()
+
 
 @decorators.api_view(['GET', 'POST'])
 def snips(request, format=None):
